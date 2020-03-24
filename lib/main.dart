@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'bloc/global_summary_bloc.dart';
 import 'bloc_delegate.dart';
 import 'locator.dart';
+import 'repository/cases_repository.dart';
 import 'repository/global_summary_repository.dart';
 import 'ui/page/home_page.dart';
 
@@ -34,8 +35,10 @@ class MyApp extends StatelessWidget {
           create: (context) {
             String time =
                 DateFormat('EEE d MMM, kk:mm:ss').format(DateTime.now());
-            return GlobalSummaryBloc(locator<GlobalSummaryRepository>())
-              ..add(InitGlobalSummary(time));
+            return GlobalSummaryBloc(
+              globalSummaryRepository: locator<GlobalSummaryRepository>(),
+              casesRepository: locator<CasesRepository>(),
+            )..add(InitGlobalSummary(time));
           },
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/ui_helper.dart';
+import '../../../utils/ui_helper.dart';
 
 class SummaryNumber extends StatelessWidget {
   final String value, title;

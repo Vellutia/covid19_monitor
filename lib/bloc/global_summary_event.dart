@@ -14,10 +14,15 @@ class InitGlobalSummary extends GlobalSummaryEvent {
 }
 
 class RefreshGlobalSummary extends GlobalSummaryEvent {
+  final int cases;
   final GlobalSummary summary;
 
-  const RefreshGlobalSummary(String time, this.summary) : super(time);
+  const RefreshGlobalSummary(
+    String time,
+    this.cases,
+    this.summary,
+  ) : super(time);
 
   @override
-  List<Object> get props => [summary];
+  List<Object> get props => [cases, summary];
 }

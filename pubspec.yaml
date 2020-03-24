@@ -25,6 +25,8 @@ dependencies:
   hydrated_bloc: ^3.0.0
   intl: ^0.16.1
   get_it: ^4.0.1
+  fl_chart: ^0.8.7
+  auto_size_text: ^2.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
