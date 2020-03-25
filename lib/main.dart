@@ -1,10 +1,13 @@
+import 'package:covid19_monitor/repository/country_list_repository.dart';
 import 'package:covid19_monitor/repository/per_country_repository.dart';
+import 'package:covid19_monitor/utils/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/intl.dart';
 
+import 'bloc/data/country_list_bloc.dart';
 import 'bloc/feature/global_summary_bloc.dart';
 import 'bloc/feature/per_country_bloc.dart';
 import 'bloc_delegate.dart';
@@ -46,16 +49,23 @@ class MyApp extends StatelessWidget {
             perCountryRepository: locator<PerCountryRepository>(),
           )..add(InitPerCountry()),
         ),
+        BlocProvider<CountryListBloc>(
+          create: (context) => CountryListBloc(
+            countryListRepository: locator<CountryListRepository>(),
+          )..add(CountryListEvent()),
+        ),
       ],
       child: MaterialApp(
-        title: 'Coronavirus Monitor',
+        title: 'COVID19 Monitor',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: Color(0xFF101010),
-          cardColor: Color(0xFF222222),
+          scaffoldBackgroundColor: scaffoldBackgroundColor,
+          cardColor: cardColor,
+          cursorColor: accentColor,
           accentTextTheme: TextTheme(
-            subtitle1: TextStyle(color: Color(0xFFff4d00)),
-            subtitle2: TextStyle(color: Color(0xFF29a19c)),
+            headline6: TextStyle(color: accentColor),
+            subtitle1: TextStyle(color: accentColor),
+            subtitle2: TextStyle(color: accentColor),
           ),
         ),
         home: HomePage(),

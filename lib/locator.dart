@@ -1,3 +1,4 @@
+import 'package:covid19_monitor/repository/country_list_repository.dart';
 import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:get_it/get_it.dart';
 
@@ -16,4 +17,6 @@ void setupLocator() {
       () => GlobalSummaryRepository(apiService: locator<ApiService>()));
   locator.registerLazySingleton(
       () => PerCountryRepository(apiService: locator<ApiService>()));
+  locator.registerLazySingleton(
+      () => CountryListRepository(apiService: locator<ApiService>()));
 }

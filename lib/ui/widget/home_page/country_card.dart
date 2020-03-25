@@ -1,3 +1,4 @@
+import 'package:covid19_monitor/bloc/data/country_list_bloc.dart';
 import 'package:covid19_monitor/bloc/feature/global_summary_bloc.dart';
 import 'package:covid19_monitor/bloc/feature/per_country_bloc.dart';
 import 'package:covid19_monitor/ui/widget/home_page/summary_number.dart';
@@ -6,6 +7,8 @@ import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import 'country_search.dart';
 
 class CountryCard extends StatelessWidget {
   final String Function(int) formatValue;
@@ -26,10 +29,49 @@ class CountryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-            child: Text(
-              'Per Country Data',
-              style: Theme.of(context).accentTextTheme.subtitle1,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    'Per Country Data',
+                    style: Theme.of(context).accentTextTheme.subtitle1,
+                  ),
+                ),
+                BlocBuilder<CountryListBloc, CountryListState>(
+                  builder: (context, state) => InkWell(
+                    onTap: state is CountryListLoaded
+                        ? () => showSearch(
+                              context: context,
+                              delegate: CountrySearch(state.countryList),
+                            )
+                        : () {},
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8.0,
+                        bottom: 8.0,
+                        left: 4.0,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            'Change Country',
+                            style: Theme.of(context).accentTextTheme.subtitle1,
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16.0,
+                            color: accentColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Card(

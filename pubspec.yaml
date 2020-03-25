@@ -50,11 +50,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - icon/case.png
-    - icon/suspected.png
-    - icon/confirmed.png
-    - icon/deaths.png
-    - icon/recovered.png
+    - asset/icon/launcher.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
