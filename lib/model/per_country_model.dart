@@ -1,29 +1,29 @@
 import 'package:covid19_monitor/model/value_model.dart';
 
-class GlobalSummary {
+class PerCountry {
   final Value confirmed;
   final Value recovered;
   final Value deaths;
-  final String source;
+  final DateTime lastUpdate;
 
-  const GlobalSummary({
+  PerCountry({
     this.confirmed,
     this.recovered,
     this.deaths,
-    this.source,
+    this.lastUpdate,
   });
 
-  factory GlobalSummary.fromJson(Map<String, dynamic> json) => GlobalSummary(
+  factory PerCountry.fromJson(Map<String, dynamic> json) => PerCountry(
         confirmed: Value.fromJson(json["confirmed"]),
         recovered: Value.fromJson(json["recovered"]),
         deaths: Value.fromJson(json["deaths"]),
-        source: json["source"],
+        lastUpdate: DateTime.parse(json["lastUpdate"]),
       );
 
   Map<String, dynamic> toJson() => {
         "confirmed": confirmed.toJson(),
         "recovered": recovered.toJson(),
         "deaths": deaths.toJson(),
-        "source": source,
+        "lastUpdate": lastUpdate.toIso8601String(),
       };
 }

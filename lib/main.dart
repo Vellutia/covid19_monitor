@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'bloc/global_summary_bloc.dart';
 import 'bloc_delegate.dart';
 import 'locator.dart';
-import 'repository/cases_repository.dart';
 import 'repository/global_summary_repository.dart';
 import 'ui/page/home_page.dart';
 
@@ -37,7 +36,6 @@ class MyApp extends StatelessWidget {
                 DateFormat('EEE d MMM, kk:mm:ss').format(DateTime.now());
             return GlobalSummaryBloc(
               globalSummaryRepository: locator<GlobalSummaryRepository>(),
-              casesRepository: locator<CasesRepository>(),
             )..add(InitGlobalSummary(time));
           },
         ),
@@ -48,6 +46,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Color(0xFF101010),
           cardColor: Color(0xFF222222),
+          accentTextTheme: TextTheme(
+            subtitle1: TextStyle(color: Color(0xFFff4d00)),
+            subtitle2: TextStyle(color: Color(0xFF29a19c)),
+          ),
         ),
         home: HomePage(),
       ),
