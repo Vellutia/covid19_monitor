@@ -19,30 +19,20 @@ class GlobalSummaryBloc extends Bloc<GlobalSummaryEvent, GlobalSummaryState> {
   });
 
   @override
-  GlobalSummaryState get initialState => GlobalSummaryState(
-        null,
-        GlobalSummary(
-          confirmed: Value(value: null),
-          deaths: Value(value: null),
-          recovered: Value(value: null),
-          source: null,
-        ),
-      );
+  GlobalSummaryState get initialState => GlobalSummaryInitial();
 
   @override
   Stream<GlobalSummaryState> mapEventToState(
     GlobalSummaryEvent event,
   ) async* {
     if (event is RefreshGlobalSummary) {
-      yield GlobalSummaryState(
+      yield GlobalSummaryLoaded(
         event.time,
         event.summary,
       );
     } else {
-      final summary = await Future.value(
-        globalSummaryRepository.fetchGlobalSummary(),
-      );
-      yield GlobalSummaryState(
+      final summary = await globalSummaryRepository.fetchGlobalSummary();
+      yield GlobalSummaryLoaded(
         event.time,
         summary,
       );

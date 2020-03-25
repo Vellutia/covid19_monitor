@@ -1,8 +1,11 @@
 import 'package:covid19_monitor/bloc/global_summary_bloc.dart';
+import 'package:covid19_monitor/bloc/per_country_bloc.dart';
 import 'package:covid19_monitor/ui/widget/home_page/summary_number.dart';
 import 'package:covid19_monitor/utils/app_style.dart';
+import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class CountryCard extends StatelessWidget {
   final String Function(int) formatValue;
@@ -39,49 +42,68 @@ class CountryCard extends StatelessWidget {
                 horizontal: 16.0,
                 vertical: 16.0,
               ),
-              child: BlocBuilder<GlobalSummaryBloc, GlobalSummaryState>(
+              child: BlocBuilder<PerCountryBloc, PerCountryState>(
                 builder: (context, state) {
-                  final confirmed = state.summary.confirmed.value != null
+                  final country =
+                      state is PerCountryLoaded ? state.country : '';
+                  final lastUpdated = state is PerCountryLoaded
+                      ? DateFormat('EEE d MMM, kk:mm:ss')
+                          .format(state.perCountry.lastUpdate)
+                      : '';
+                  final confirmed = state is PerCountryLoaded
                       ? formatValue(
-                          int.parse(state.summary.confirmed.value),
+                          int.parse(state.perCountry.confirmed.value),
                         )
                       : '';
-                  final deaths = state.summary.deaths.value != null
+                  final deaths = state is PerCountryLoaded
                       ? formatValue(
-                          int.parse(state.summary.deaths.value),
+                          int.parse(state.perCountry.deaths.value),
                         )
                       : '';
-                  final recovered = state.summary.recovered.value != null
+                  final recovered = state is PerCountryLoaded
                       ? formatValue(
-                          int.parse(state.summary.recovered.value),
+                          int.parse(state.perCountry.recovered.value),
                         )
                       : '';
                   return Column(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            SummaryNumber(
-                              value: confirmed,
-                              title: 'Confirmed',
-                              color: confirmedColor,
-                            ),
-                            SummaryNumber(
-                              value: deaths,
-                              title: 'Deaths',
-                              color: deathsColor,
-                            ),
-                            SummaryNumber(
-                              value: recovered,
-                              title: 'Recovered',
-                              color: recoveredColor,
-                            ),
-                          ],
-                        ),
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            '$country',
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          Text(
+                            'Last updated: $lastUpdated',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(color: labelColor),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceMedium,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          SummaryNumber(
+                            value: confirmed,
+                            title: 'Confirmed',
+                            color: confirmedColor,
+                          ),
+                          SummaryNumber(
+                            value: deaths,
+                            title: 'Deaths',
+                            color: deathsColor,
+                          ),
+                          SummaryNumber(
+                            value: recovered,
+                            title: 'Recovered',
+                            color: recoveredColor,
+                          ),
+                        ],
                       ),
                     ],
                   );

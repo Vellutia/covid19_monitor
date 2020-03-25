@@ -1,3 +1,4 @@
+import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'bloc/global_summary_bloc.dart';
+import 'bloc/per_country_bloc.dart';
 import 'bloc_delegate.dart';
 import 'locator.dart';
 import 'repository/global_summary_repository.dart';
@@ -38,6 +40,11 @@ class MyApp extends StatelessWidget {
               globalSummaryRepository: locator<GlobalSummaryRepository>(),
             )..add(InitGlobalSummary(time));
           },
+        ),
+        BlocProvider<PerCountryBloc>(
+          create: (context) => PerCountryBloc(
+            perCountryRepository: locator<PerCountryRepository>(),
+          )..add(InitPerCountry()),
         ),
       ],
       child: MaterialApp(

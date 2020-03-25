@@ -33,24 +33,22 @@ class SummaryCard extends StatelessWidget {
           ),
           child: BlocBuilder<GlobalSummaryBloc, GlobalSummaryState>(
             builder: (context, state) {
-              final cases = state.summary.confirmed.value != null &&
-                      state.summary.deaths.value != null &&
-                      state.summary.recovered.value != null
+              final cases = state is GlobalSummaryLoaded
                   ? formatValue(int.parse(state.summary.confirmed.value) +
                       int.parse(state.summary.deaths.value) +
                       int.parse(state.summary.recovered.value))
                   : '';
-              final confirmed = state.summary.confirmed.value != null
+              final confirmed = state is GlobalSummaryLoaded
                   ? formatValue(
                       int.parse(state.summary.confirmed.value),
                     )
                   : '';
-              final deaths = state.summary.deaths.value != null
+              final deaths = state is GlobalSummaryLoaded
                   ? formatValue(
                       int.parse(state.summary.deaths.value),
                     )
                   : '';
-              final recovered = state.summary.recovered.value != null
+              final recovered = state is GlobalSummaryLoaded
                   ? formatValue(
                       int.parse(state.summary.recovered.value),
                     )
@@ -68,9 +66,15 @@ class SummaryCard extends StatelessWidget {
                         children: [
                           SummaryPiechart(
                             numbers: [
-                              state.summary.confirmed.value ?? '1.0',
-                              state.summary.deaths.value ?? '1.0',
-                              state.summary.recovered.value ?? '1.0',
+                              state is GlobalSummaryLoaded
+                                  ? state.summary.confirmed.value
+                                  : '1.0',
+                              state is GlobalSummaryLoaded
+                                  ? state.summary.deaths.value
+                                  : '1.0',
+                              state is GlobalSummaryLoaded
+                                  ? state.summary.recovered.value
+                                  : '1.0',
                             ],
                           ),
                           SummaryCases(
@@ -105,7 +109,7 @@ class SummaryCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Last checked: ${state.time ?? ''}\nData source: ${state.summary.source ?? ''}',
+                    'Last checked: ${state is GlobalSummaryLoaded ? state.time : ''}\nData source: ${state is GlobalSummaryLoaded ? state.summary.source : ''}',
                     style: Theme.of(context)
                         .textTheme
                         .bodyText2

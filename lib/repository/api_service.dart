@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:covid19_monitor/model/per_country_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/global_summary_model.dart';
@@ -21,7 +22,7 @@ class ApiService {
     return GlobalSummary.fromJson(json.decode(response.body));
   }
 
-  Future<GlobalSummary> fetchPerCountry(String country) async {
+  Future<PerCountry> fetchPerCountry(String country) async {
     final response = await http.get(
       '${api.perCountryUri(country)}',
       headers: {
@@ -29,6 +30,6 @@ class ApiService {
       },
     );
 
-    return GlobalSummary.fromJson(json.decode(response.body));
+    return PerCountry.fromJson(json.decode(response.body));
   }
 }
