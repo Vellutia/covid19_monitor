@@ -13,4 +13,10 @@ class Api {
         host: host,
         path: 'api/countries/$country',
       );
+
+  Uri countryListUri() => Uri(
+        scheme: scheme,
+        host: host,
+        path: 'api/countries',
+      );
 }

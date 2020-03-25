@@ -6,7 +6,7 @@ class PerCountry {
   final Value deaths;
   final DateTime lastUpdate;
 
-  PerCountry({
+  const PerCountry({
     this.confirmed,
     this.recovered,
     this.deaths,

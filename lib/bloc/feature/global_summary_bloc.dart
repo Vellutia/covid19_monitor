@@ -5,8 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../model/global_summary_model.dart';
-import '../repository/global_summary_repository.dart';
+import '../../model/global_summary_model.dart';
+import '../../repository/global_summary_repository.dart';
 
 part 'global_summary_event.dart';
 part 'global_summary_state.dart';

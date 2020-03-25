@@ -1,4 +1,4 @@
-import 'package:covid19_monitor/bloc/global_summary_bloc.dart';
+import 'package:covid19_monitor/bloc/feature/global_summary_bloc.dart';
 import 'package:covid19_monitor/ui/widget/home_page/summary_cases.dart';
 import 'package:covid19_monitor/ui/widget/home_page/summary_number.dart';
 import 'package:covid19_monitor/ui/widget/home_page/summary_piechart.dart';

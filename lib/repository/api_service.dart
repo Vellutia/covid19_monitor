@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:covid19_monitor/model/country_list_model.dart';
 import 'package:covid19_monitor/model/per_country_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,5 +32,16 @@ class ApiService {
     );
 
     return PerCountry.fromJson(json.decode(response.body));
+  }
+
+  Future<CountryList> fetchCountryList() async {
+    final response = await http.get(
+      '${api.countryListUri()}',
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+
+    return CountryList.fromJson(json.decode(response.body));
   }
 }
