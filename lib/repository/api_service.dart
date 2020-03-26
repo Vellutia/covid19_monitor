@@ -56,6 +56,7 @@ class ApiService {
 
     final listResponse = json.decode(response.body) as List;
 
-    return List<DailyUpdate>.from(listResponse.map((e) => DailyUpdate.fromJson(e)));
+    return List<DailyUpdate>.from(
+        listResponse.map((e) => DailyUpdate.fromJson(e))).reversed.toList();
   }
 }

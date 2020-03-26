@@ -42,10 +42,7 @@ class CountrySearch extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: AnimatedIcon(
-        icon: AnimatedIcons.menu_arrow,
-        progress: transitionAnimation,
-      ),
+      icon: Icon(Icons.arrow_back),
       onPressed: () => close(context, null),
     );
   }

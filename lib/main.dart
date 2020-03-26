@@ -1,4 +1,6 @@
+import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
 import 'package:covid19_monitor/repository/country_list_repository.dart';
+import 'package:covid19_monitor/repository/daily_update_repository.dart';
 import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:covid19_monitor/utils/app_style.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +56,11 @@ class MyApp extends StatelessWidget {
           create: (context) => CountryListBloc(
             countryListRepository: locator<CountryListRepository>(),
           )..add(CountryListEvent()),
+        ),
+        BlocProvider<DailyUpdateBloc>(
+          create: (context) => DailyUpdateBloc(
+            dailyUpdateRepository: locator<DailyUpdateRepository>(),
+          )..add(InitDailyUpdate()),
         ),
         BlocProvider<PositionBloc>(
           create: (context) => PositionBloc(),

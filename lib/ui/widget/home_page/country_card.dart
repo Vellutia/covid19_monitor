@@ -32,29 +32,28 @@ class CountryCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: 8.0,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    'Per Country Data',
-                    style: Theme.of(context).accentTextTheme.subtitle1,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 8.0,
+                bottom: 12.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Per Country Data',
+                      style: Theme.of(context).accentTextTheme.subtitle1,
+                    ),
                   ),
-                ),
-                BlocBuilder<CountryListBloc, CountryListState>(
-                  builder: (context, state) => InkWell(
-                    onTap: state is CountryListLoaded
-                        ? () => showSearch(
-                              context: context,
-                              delegate: CountrySearch(state.countryList),
-                            )
-                        : () {},
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 8.0,
-                        bottom: 8.0,
-                        left: 4.0,
-                      ),
+                  BlocBuilder<CountryListBloc, CountryListState>(
+                    builder: (context, state) => InkWell(
+                      onTap: state is CountryListLoaded
+                          ? () => showSearch(
+                                context: context,
+                                delegate: CountrySearch(state.countryList),
+                              )
+                          : () {},
                       child: Row(
                         children: <Widget>[
                           Text(
@@ -70,8 +69,8 @@ class CountryCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Card(

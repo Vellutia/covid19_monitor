@@ -1,7 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:covid19_monitor/bloc/data/position_bloc.dart';
+import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
 import 'package:covid19_monitor/bloc/feature/per_country_bloc.dart';
 import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:covid19_monitor/utils/app_style.dart';
+import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -52,6 +55,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void jumpToTop() => _controller.animateTo(
+        _controller.position.minScrollExtent,
+        curve: Curves.easeIn,
+        duration: Duration(milliseconds: 500),
+      );
+
   String formatValue(int value) => NumberFormat.simpleCurrency(decimalDigits: 0)
       .format(value)
       .replaceAll('\$', '');
@@ -65,14 +74,11 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          elevation: 0.0,
           mini: true,
+          elevation: 0.0,
+          highlightElevation: 0.0,
           child: Icon(Icons.arrow_upward),
-          onPressed: () => _controller.animateTo(
-           _controller.position.minScrollExtent + 0.1,
-           curve: Curves.easeIn,
-           duration: Duration(milliseconds: 500),
-          ),
+          onPressed: () => jumpToTop(),
         ),
         appBar: AppBar(
           title: Row(
@@ -122,9 +128,11 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8.0,
+                      padding: const EdgeInsets.fromLTRB(
+                        16.0,
+                        8.0,
+                        16.0,
+                        12.0,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,20 +147,138 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      separatorBuilder: (context, index) => Divider(
-                        height: 1.5,
-                        color: scaffoldBackgroundColor,
-                      ),
-                      itemBuilder: (context, index) => Material(
-                        color: cardColor,
-                        child: InkWell(
-                          onTap: () {},
-                          child: ListTile(title: Text('$index')),
-                        ),
-                      ),
+                    BlocBuilder<DailyUpdateBloc, DailyUpdateState>(
+                      builder: (context, state) {
+                        if (state is DailyUpdateLoaded) {
+                          final autoSizeGroup = AutoSizeGroup();
+
+                          return ListView.separated(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: state.dailyUpdates.length,
+                            separatorBuilder: (context, index) => Divider(
+                              height: 1.5,
+                              color: scaffoldBackgroundColor,
+                            ),
+                            itemBuilder: (context, index) {
+                              final confirmedIcon =
+                                  (index != (state.dailyUpdates.length - 1))
+                                      ? state.dailyUpdates[index]
+                                                  .deltaConfirmedDetail.total >
+                                              state.dailyUpdates[index + 1]
+                                                  .deltaConfirmedDetail.total
+                                          ? Icons.trending_up
+                                          : Icons.trending_down
+                                      : Icons.trending_up;
+                              final deathsIcon =
+                                  (index != (state.dailyUpdates.length - 1))
+                                      ? state.dailyUpdates[index].deaths.total >
+                                              state.dailyUpdates[index + 1]
+                                                  .deaths.total
+                                          ? Icons.trending_up
+                                          : Icons.trending_down
+                                      : Icons.trending_up;
+                              final reportDate = DateFormat('EEE d MMM')
+                                  .format(state.dailyUpdates[index].reportDate);
+                              final casesChina = formatValue(
+                                  state.dailyUpdates[index].mainlandChina);
+                              final casesOthers = formatValue(
+                                  state.dailyUpdates[index].otherLocations);
+                              final confirmed = formatValue(state
+                                  .dailyUpdates[index]
+                                  .deltaConfirmedDetail
+                                  .total);
+                              final deaths = formatValue(
+                                  state.dailyUpdates[index].deaths.total);
+
+                              return Material(
+                                color: cardColor,
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(16.0),
+                                    title: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.access_time,
+                                          color: accentColor,
+                                        ),
+                                        horizontalSpaceMedium,
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text('$reportDate'),
+                                              verticalSpaceSmall,
+                                              Row(
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Icon(
+                                                          confirmedIcon,
+                                                          color: accentColor,
+                                                        ),
+                                                        Expanded(
+                                                          child: AutoSizeText(
+                                                            ' Confirmed: $confirmed',
+                                                            maxLines: 1,
+                                                            group:
+                                                                autoSizeGroup,
+                                                            style: TextStyle(
+                                                                color:
+                                                                    confirmedColor),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  horizontalSpaceTiny,
+                                                  Expanded(
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Icon(
+                                                          deathsIcon,
+                                                          color: accentColor,
+                                                        ),
+                                                        Expanded(
+                                                          child: AutoSizeText(
+                                                            ' Deaths: $deaths',
+                                                            maxLines: 1,
+                                                            group: autoSizeGroup,
+                                                            style: TextStyle(
+                                                                color:
+                                                                    deathsColor),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              verticalSpaceSmall,
+                                              Text(
+                                                'Total $casesChina cases on China and $casesOthers on the other location',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle2
+                                                    .copyWith(
+                                                        color: labelColor),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }
+                        return Offstage();
+                      },
                     ),
                   ],
                 ),
