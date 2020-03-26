@@ -7,7 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/intl.dart';
 
-import 'bloc/data/country_list_bloc.dart';
+import 'bloc/feature/country_list_bloc.dart';
+import 'bloc/data/position_bloc.dart';
 import 'bloc/feature/global_summary_bloc.dart';
 import 'bloc/feature/per_country_bloc.dart';
 import 'bloc_delegate.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
           create: (context) => CountryListBloc(
             countryListRepository: locator<CountryListRepository>(),
           )..add(CountryListEvent()),
+        ),
+        BlocProvider<PositionBloc>(
+          create: (context) => PositionBloc(),
         ),
       ],
       child: MaterialApp(

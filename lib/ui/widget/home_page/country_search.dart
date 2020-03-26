@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'package:covid19_monitor/bloc/data/country_list_bloc.dart';
+import 'package:covid19_monitor/bloc/feature/country_list_bloc.dart';
 import 'package:covid19_monitor/bloc/feature/per_country_bloc.dart';
 import 'package:covid19_monitor/model/country_list_model.dart';
 import 'package:covid19_monitor/utils/app_style.dart';

@@ -1,3 +1,4 @@
+import 'package:covid19_monitor/bloc/data/position_bloc.dart';
 import 'package:covid19_monitor/utils/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,32 @@ import '../../repository/global_summary_repository.dart';
 import '../widget/home_page/country_card.dart';
 import '../widget/home_page/summary_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // ScrollController _controller;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _controller = ScrollController(
+  //     initialScrollOffset: BlocProvider.of<PositionBloc>(context).state ?? 0.0,
+  //   );
+  //   _controller.addListener(
+  //     () => BlocProvider.of<PositionBloc>(context)
+  //         .add(_controller.position.pixels),
+  //   );
+  // }
+
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
+
   void onRefresh(BuildContext context) async {
     await Future.value(
       locator<GlobalSummaryRepository>().fetchGlobalSummary(),
@@ -56,6 +82,7 @@ class HomePage extends StatelessWidget {
         body: RefreshIndicator(
           onRefresh: () async => onRefresh(context),
           child: ListView(
+            // controller: _controller,
             children: [
               SummaryCard(
                 formatValue: formatValue,
