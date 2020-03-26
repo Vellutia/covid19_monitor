@@ -19,4 +19,10 @@ class Api {
         host: host,
         path: 'api/countries',
       );
+
+  Uri dailyUpdateUri() => Uri(
+        scheme: scheme,
+        host: host,
+        path: 'api/daily',
+      );
 }
