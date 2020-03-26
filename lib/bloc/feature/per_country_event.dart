@@ -9,6 +9,16 @@ class InitPerCountry extends PerCountryEvent {
   List<Object> get props => [];
 }
 
+class RefreshPerCountry extends PerCountryEvent {
+  final String country;
+  final PerCountry perCountry;
+
+  const RefreshPerCountry(this.country, this.perCountry);
+
+  @override
+  List<Object> get props => [country, perCountry];
+}
+
 class ChangePerCountry extends PerCountryEvent {
   final String country;
 

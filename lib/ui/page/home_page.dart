@@ -1,4 +1,6 @@
 import 'package:covid19_monitor/bloc/data/position_bloc.dart';
+import 'package:covid19_monitor/bloc/feature/per_country_bloc.dart';
+import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:covid19_monitor/utils/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,33 +18,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // ScrollController _controller;
+  ScrollController _controller;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _controller = ScrollController(
-  //     initialScrollOffset: BlocProvider.of<PositionBloc>(context).state ?? 0.0,
-  //   );
-  //   _controller.addListener(
-  //     () => BlocProvider.of<PositionBloc>(context)
-  //         .add(_controller.position.pixels),
-  //   );
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController(
+        // initialScrollOffset: BlocProvider.of<PositionBloc>(context).state ?? 0.0,
+        );
+    // _controller.addListener(
+    //   () => BlocProvider.of<PositionBloc>(context)
+    //       .add(_controller.position.pixels),
+    // );
+  }
 
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-  void onRefresh(BuildContext context) async {
-    await Future.value(
+  void onRefresh(
+      BuildContext context, PerCountryLoaded perCountryLoaded) async {
+    await Future.wait([
       locator<GlobalSummaryRepository>().fetchGlobalSummary(),
-    ).then((value) {
+      locator<PerCountryRepository>().fetchPerCountry(perCountryLoaded.country),
+    ]).then((value) {
       String time = DateFormat('EEE d MMM, kk:mm:ss').format(DateTime.now());
       BlocProvider.of<GlobalSummaryBloc>(context)
-          .add(RefreshGlobalSummary(time, value));
+          .add(RefreshGlobalSummary(time, value[0]));
+      BlocProvider.of<PerCountryBloc>(context)
+          .add(RefreshPerCountry(perCountryLoaded.country, value[1]));
     });
   }
 
@@ -52,8 +58,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final globalSummaryState =
+        BlocProvider.of<GlobalSummaryBloc>(context).state;
+    final perCountryState = BlocProvider.of<PerCountryBloc>(context).state;
+
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          elevation: 0.0,
+          mini: true,
+          child: Icon(Icons.arrow_upward),
+          onPressed: () => _controller.animateTo(
+           _controller.position.minScrollExtent + 0.1,
+           curve: Curves.easeIn,
+           duration: Duration(milliseconds: 500),
+          ),
+        ),
         appBar: AppBar(
           title: Row(
             children: <Widget>[
@@ -80,9 +100,14 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
         body: RefreshIndicator(
-          onRefresh: () async => onRefresh(context),
+          onRefresh: () async {
+            if (globalSummaryState is GlobalSummaryLoaded &&
+                perCountryState is PerCountryLoaded) {
+              onRefresh(context, perCountryState);
+            }
+          },
           child: ListView(
-            // controller: _controller,
+            controller: _controller,
             children: [
               SummaryCard(
                 formatValue: formatValue,

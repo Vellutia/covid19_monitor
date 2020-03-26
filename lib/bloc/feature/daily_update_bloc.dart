@@ -15,6 +15,6 @@ class DailyUpdateBloc extends Bloc<DailyUpdateEvent, DailyUpdateState> {
   Stream<DailyUpdateState> mapEventToState(
     DailyUpdateEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    
   }
 }
