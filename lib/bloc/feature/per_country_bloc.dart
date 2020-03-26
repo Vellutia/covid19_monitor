@@ -5,11 +5,12 @@ import 'package:covid19_monitor/model/per_country_model.dart';
 import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'per_country_event.dart';
 part 'per_country_state.dart';
 
-class PerCountryBloc extends Bloc<PerCountryEvent, PerCountryState> {
+class PerCountryBloc extends HydratedBloc<PerCountryEvent, PerCountryState> {
   final PerCountryRepository perCountryRepository;
 
   PerCountryBloc({
@@ -17,7 +18,7 @@ class PerCountryBloc extends Bloc<PerCountryEvent, PerCountryState> {
   });
 
   @override
-  PerCountryState get initialState => PerCountryInitial();
+  PerCountryState get initialState => super.initialState ?? PerCountryInitial();
 
   @override
   Stream<PerCountryState> mapEventToState(
@@ -29,10 +30,46 @@ class PerCountryBloc extends Bloc<PerCountryEvent, PerCountryState> {
 
       yield PerCountryLoaded(event.country, perCountry);
     } else {
-      final perCountry =
-          await perCountryRepository.fetchPerCountry('Indonesia');
+      if (state is PerCountryLoaded) {
+        final curState = (state as PerCountryLoaded);
+        final perCountry =
+            await perCountryRepository.fetchPerCountry('${curState.country}');
 
-      yield PerCountryLoaded('Indonesia', perCountry);
+        yield PerCountryLoaded('${curState.country}', perCountry);
+      } else {
+        final perCountry =
+            await perCountryRepository.fetchPerCountry('Indonesia');
+
+        yield PerCountryLoaded('Indonesia', perCountry);
+      }
+    }
+  }
+
+  @override
+  PerCountryState fromJson(Map<String, dynamic> json) {
+    final country = json['country'] as String;
+    final perCountry = PerCountry.fromJson(json['perCountry']);
+    try {
+      return PerCountryLoaded(
+        country,
+        perCountry,
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic> toJson(PerCountryState state) {
+    final country = (state as PerCountryLoaded).country;
+    final perCountry = (state as PerCountryLoaded).perCountry.toJson();
+    try {
+      return {
+        'country': country,
+        'perCountry': perCountry,
+      };
+    } catch (_) {
+      return null;
     }
   }
 }

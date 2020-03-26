@@ -46,7 +46,7 @@ class ApiService {
     return CountryList.fromJson(json.decode(response.body));
   }
 
-  Future<DailyUpdate> fetchDailyUpdate() async {
+  Future<List<DailyUpdate>> fetchDailyUpdate() async {
     final response = await http.get(
       '${api.dailyUpdateUri()}',
       headers: {
@@ -54,6 +54,8 @@ class ApiService {
       },
     );
 
-    return DailyUpdate.fromJson(json.decode(response.body));
+    final listResponse = json.decode(response.body) as List;
+
+    return List<DailyUpdate>.from(listResponse.map((e) => DailyUpdate.fromJson(e)));
   }
 }

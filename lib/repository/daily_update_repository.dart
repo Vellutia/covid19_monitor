@@ -1,4 +1,3 @@
-
 import 'package:covid19_monitor/model/daily_update_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -9,7 +8,7 @@ class DailyUpdateRepository {
 
   const DailyUpdateRepository({@required this.apiService});
 
-  Future<DailyUpdate> fetchDailyUpdate() async {
+  Future<List<DailyUpdate>> fetchDailyUpdate() async {
     return await apiService.fetchDailyUpdate();
   }
 }
