@@ -23,9 +23,15 @@ class DailyUpdateBloc extends Bloc<DailyUpdateEvent, DailyUpdateState> {
   Stream<DailyUpdateState> mapEventToState(
     DailyUpdateEvent event,
   ) async* {
-    final dailyUpdate = await dailyUpdateRepository.fetchDailyUpdate();
-    yield DailyUpdateLoaded(
-      dailyUpdate,
-    );
+    if (event is RefreshDailyUpdate) {
+      yield DailyUpdateLoaded(
+        event.dailyUpdate,
+      );
+    } else {
+      final dailyUpdate = await dailyUpdateRepository.fetchDailyUpdate();
+      yield DailyUpdateLoaded(
+        dailyUpdate,
+      );
+    }
   }
 }

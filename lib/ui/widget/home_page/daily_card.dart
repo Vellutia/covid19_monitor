@@ -23,19 +23,25 @@ class DailyCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
-                  child: Text(
-                    'Daily Updates',
-                    style: Theme.of(context).accentTextTheme.subtitle1,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      'Daily Updates',
+                      style: Theme.of(context).accentTextTheme.subtitle1,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
+          verticalSpaceSmall,
           BlocBuilder<DailyUpdateBloc, DailyUpdateState>(
             builder: (context, state) {
               if (state is DailyUpdateLoaded) {

@@ -2,6 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:covid19_monitor/bloc/data/position_bloc.dart';
 import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
 import 'package:covid19_monitor/bloc/feature/per_country_bloc.dart';
+import 'package:covid19_monitor/model/daily_update_model.dart';
+import 'package:covid19_monitor/model/global_summary_model.dart';
+import 'package:covid19_monitor/model/per_country_model.dart';
+import 'package:covid19_monitor/repository/daily_update_repository.dart';
 import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:covid19_monitor/ui/widget/home_page/daily_card.dart';
 import 'package:covid19_monitor/utils/app_style.dart';
@@ -42,17 +46,24 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void onRefresh(
-      BuildContext context, PerCountryLoaded perCountryLoaded) async {
+  void onRefresh(BuildContext context, PerCountryLoaded perCountryLoaded) async {
     await Future.wait([
       locator<GlobalSummaryRepository>().fetchGlobalSummary(),
       locator<PerCountryRepository>().fetchPerCountry(perCountryLoaded.country),
+      locator<DailyUpdateRepository>().fetchDailyUpdate(),
     ]).then((value) {
       String time = DateFormat('EEE d MMM, kk:mm:ss').format(DateTime.now());
-      BlocProvider.of<GlobalSummaryBloc>(context)
-          .add(RefreshGlobalSummary(time, value[0]));
-      BlocProvider.of<PerCountryBloc>(context)
-          .add(RefreshPerCountry(perCountryLoaded.country, value[1]));
+      BlocProvider.of<GlobalSummaryBloc>(context).add(RefreshGlobalSummary(
+        time,
+        value[0] as GlobalSummary,
+      ));
+      BlocProvider.of<PerCountryBloc>(context).add(RefreshPerCountry(
+        perCountryLoaded.country,
+        value[1] as PerCountry,
+      ));
+      BlocProvider.of<DailyUpdateBloc>(context).add(RefreshDailyUpdate(
+        value[2] as List<DailyUpdate>,
+      ));
     });
   }
 
