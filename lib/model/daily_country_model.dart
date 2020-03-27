@@ -14,11 +14,16 @@ class DailyCountry {
   });
 
   factory DailyCountry.fromJson(Map<String, dynamic> json) => DailyCountry(
-        admin2: json["admin2"],
-        provinceState: json["provinceState"],
+        admin2: json["admin2"] == '' || json["admin2"] == null
+            ? null
+            : json["admin2"],
+        provinceState:
+            json["provinceState"] == '' || json["provinceState"] == null
+                ? null
+                : json["provinceState"],
         countryRegion: json["countryRegion"],
-        confirmed: json["confirmed"],
-        deaths: json["deaths"],
+        confirmed: json["confirmed"] == '' ? '0' : json["confirmed"],
+        deaths: json["deaths"] == '' ? '0' : json["deaths"],
       );
 
   Map<String, dynamic> toJson() => {

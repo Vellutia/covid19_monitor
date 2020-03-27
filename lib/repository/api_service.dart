@@ -73,6 +73,6 @@ class ApiService {
 
     return List<DailyCountry>.from(listResponse
         .map((e) => DailyCountry.fromJson(e))
-        .where((e) => e.confirmed != '0' && e.deaths != '0'));
+        .where((e) => !(e.confirmed == '0' && e.deaths == '0')));
   }
 }

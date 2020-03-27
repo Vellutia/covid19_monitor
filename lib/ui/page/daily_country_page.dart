@@ -29,15 +29,11 @@ class DailyCountryPage extends StatelessWidget {
                 itemCount: state.dailyCountry.length,
                 itemBuilder: (context, index) {
                   final country = state.dailyCountry[index].admin2 != null &&
-                          state.dailyCountry[index].admin2 != '' &&
-                          state.dailyCountry[index].provinceState != null &&
-                          state.dailyCountry[index].provinceState != ''
+                          state.dailyCountry[index].provinceState != null
                       ? '${state.dailyCountry[index].admin2}, ${state.dailyCountry[index].provinceState}, ${state.dailyCountry[index].countryRegion}'
-                      : state.dailyCountry[index].admin2 != null &&
-                              state.dailyCountry[index].admin2 != ''
+                      : state.dailyCountry[index].admin2 != null
                           ? '${state.dailyCountry[index].admin2}, ${state.dailyCountry[index].countryRegion}'
-                          : state.dailyCountry[index].provinceState != null &&
-                                  state.dailyCountry[index].provinceState != ''
+                          : state.dailyCountry[index].provinceState != null
                               ? '${state.dailyCountry[index].provinceState}, ${state.dailyCountry[index].countryRegion}'
                               : '${state.dailyCountry[index].countryRegion}';
                   final confirmed = formatValue(
