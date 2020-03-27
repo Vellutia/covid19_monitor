@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:covid19_monitor/model/country_list_model.dart';
+import 'package:covid19_monitor/model/daily_country_model.dart';
 import 'package:covid19_monitor/model/daily_update_model.dart';
 import 'package:covid19_monitor/model/per_country_model.dart';
 import 'package:http/http.dart' as http;
@@ -58,5 +59,20 @@ class ApiService {
 
     return List<DailyUpdate>.from(
         listResponse.map((e) => DailyUpdate.fromJson(e))).reversed.toList();
+  }
+
+  Future<List<DailyCountry>> fetchDailyCountry(String date) async {
+    final response = await http.get(
+      '${api.dailyCountryUri(date)}',
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+
+    final listResponse = json.decode(response.body) as List;
+
+    return List<DailyCountry>.from(listResponse
+        .map((e) => DailyCountry.fromJson(e))
+        .where((e) => e.confirmed != '0' && e.deaths != '0'));
   }
 }

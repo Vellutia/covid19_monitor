@@ -25,4 +25,10 @@ class Api {
         host: host,
         path: 'api/daily',
       );
+
+  Uri dailyCountryUri(String date) => Uri(
+        scheme: scheme,
+        host: host,
+        path: 'api/daily/$date',
+      );
 }

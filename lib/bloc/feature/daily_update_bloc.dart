@@ -5,11 +5,12 @@ import 'package:covid19_monitor/model/daily_update_model.dart';
 import 'package:covid19_monitor/repository/daily_update_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'daily_update_event.dart';
 part 'daily_update_state.dart';
 
-class DailyUpdateBloc extends Bloc<DailyUpdateEvent, DailyUpdateState> {
+class DailyUpdateBloc extends HydratedBloc<DailyUpdateEvent, DailyUpdateState> {
   final DailyUpdateRepository dailyUpdateRepository;
 
   DailyUpdateBloc({
@@ -17,7 +18,8 @@ class DailyUpdateBloc extends Bloc<DailyUpdateEvent, DailyUpdateState> {
   });
 
   @override
-  DailyUpdateState get initialState => DailyUpdateInitial();
+  DailyUpdateState get initialState =>
+      super.initialState ?? DailyUpdateInitial();
 
   @override
   Stream<DailyUpdateState> mapEventToState(
@@ -32,6 +34,33 @@ class DailyUpdateBloc extends Bloc<DailyUpdateEvent, DailyUpdateState> {
       yield DailyUpdateLoaded(
         dailyUpdate,
       );
+    }
+  }
+
+  @override
+  DailyUpdateState fromJson(Map<String, dynamic> json) {
+    final dailyUpdates = List<DailyUpdate>.from(
+        json["dailyUpdates"].map((x) => DailyUpdate.fromJson(x)));
+    try {
+      return DailyUpdateLoaded(
+        dailyUpdates,
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic> toJson(DailyUpdateState state) {
+    final dailyUpdates = List<dynamic>.from(
+      (state as DailyUpdateLoaded).dailyUpdates.map((x) => x.toJson()),
+    );
+    try {
+      return {
+        'dailyUpdates': dailyUpdates,
+      };
+    } catch (_) {
+      return null;
     }
   }
 }

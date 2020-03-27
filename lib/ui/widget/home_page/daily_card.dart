@@ -1,10 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:covid19_monitor/bloc/feature/daily_country_bloc.dart';
 import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
+import 'package:covid19_monitor/repository/daily_country_repository.dart';
+import 'package:covid19_monitor/ui/page/daily_country_page.dart';
 import 'package:covid19_monitor/utils/app_style.dart';
 import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../../locator.dart';
 
 class DailyCard extends StatelessWidget {
   final String Function(int) formatValue;
@@ -85,7 +90,23 @@ class DailyCard extends StatelessWidget {
                     return Material(
                       color: cardColor,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  BlocProvider<DailyCountryBloc>(
+                                create: (context) => DailyCountryBloc(
+                                  dailyCountryRepository:
+                                      locator<DailyCountryRepository>(),
+                                )..add(InitDailyCountry(
+                                    '${state.dailyUpdates[index].reportDate.year.toString().padLeft(4, '0')}-${state.dailyUpdates[index].reportDate.month.toString().padLeft(2, '0')}-${state.dailyUpdates[index].reportDate.day.toString().padLeft(2, '0')}')),
+                                child: DailyCountryPage(
+                                  formatValue: formatValue,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                         child: ListTile(
                           contentPadding: const EdgeInsets.all(16.0),
                           title: Row(
