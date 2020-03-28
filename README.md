@@ -1,16 +1,36 @@
-# covid19_monitor
+<img src="asset/icon/launcher.png" width="50">
 
-A new Flutter project.
+APK Download: https://github.com/Vellutia/covid19_monitor/releases
 
-## Getting Started
+# currency_converter
 
-This project is a starting point for a Flutter application.
+Personal project with learning purposes.
 
-A few resources to get you started if this is your first Flutter project:
+### Packages
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc) - A predictable state management library that helps implement the [BLoC design pattern](https://www.didierboelens.com/2018/08/reactive-programming---streams---bloc/).
+- [hydrated_bloc](https://pub.dev/packages/hydrated_bloc) - An extension to the `bloc` state management library which automatically persists and restores `bloc` states, by [Felix Angelov](https://github.com/felangel).
+- [equatable](https://pub.dev/packages/equatable) - Simplify Equality Comparisons.
+- [get_it](https://pub.dev/packages/get_it) - Simple Service Locator for Dart and Flutter projects with some additional goodies highly inspired by [Splat](https://github.com/reactiveui/splat).
+- [fl_chart](https://pub.dev/packages/fl_chart) - 💥 A library to draw fantastic charts in Flutter 💥
+- [auto_size_text](https://pub.dev/packages/auto_size_text) - Flutter widget that automatically resizes text to fit perfectly within its bounds.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Powered by
+
+- [covid-19-api](https://github.com/mathdroid/covid-19-api) - COVID-19 global data (from JHU CSSE for now) as-a-service.
+
+### Design clone of
+
+- [kotlin-mvvm-covid19](https://github.com/rizmaulana/kotlin-mvvm-covid19)
+
+## Examples
+
+<pre>
+    <img src="asset/image/Screenshot_2020-03-28-22-06-55-656_com.example.covid19_monitor.jpg" width="250">   <img src="asset/image/Screenshot_2020-03-28-22-07-17-295_com.example.covid19_monitor.jpg" width="250">   <img src="asset/image/Screenshot_2020-03-28-22-07-36-507_com.example.covid19_monitor.jpg" width="250">
+</pre>
+
+## Author
+
+- [Federick Jonathan](https://github.com/Vellutia)
+
+If you find this helpful in any way, please consider give it a ★.
