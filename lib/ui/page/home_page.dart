@@ -1,23 +1,20 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:covid19_monitor/bloc/data/position_bloc.dart';
-import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
-import 'package:covid19_monitor/bloc/feature/per_country_bloc.dart';
-import 'package:covid19_monitor/model/daily_update_model.dart';
-import 'package:covid19_monitor/model/global_summary_model.dart';
-import 'package:covid19_monitor/model/per_country_model.dart';
-import 'package:covid19_monitor/repository/daily_update_repository.dart';
-import 'package:covid19_monitor/repository/per_country_repository.dart';
-import 'package:covid19_monitor/ui/widget/home_page/daily_card.dart';
-import 'package:covid19_monitor/utils/app_style.dart';
-import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../bloc/feature/daily_update_bloc.dart';
 import '../../bloc/feature/global_summary_bloc.dart';
+import '../../bloc/feature/per_country_bloc.dart';
 import '../../locator.dart';
+import '../../model/daily_update_model.dart';
+import '../../model/global_summary_model.dart';
+import '../../model/per_country_model.dart';
+import '../../repository/daily_update_repository.dart';
 import '../../repository/global_summary_repository.dart';
+import '../../repository/per_country_repository.dart';
 import '../widget/home_page/country_card.dart';
+import '../widget/home_page/daily_card.dart';
 import '../widget/home_page/summary_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,12 +29,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _controller = ScrollController(
-        // initialScrollOffset: BlocProvider.of<PositionBloc>(context).state ?? 0.0,
-        );
-    // _controller.addListener(
-    //   () => BlocProvider.of<PositionBloc>(context)
-    //       .add(_controller.position.pixels),
-    // );
+      initialScrollOffset: BlocProvider.of<PositionBloc>(context).state ?? 0.0,
+    );
+    _controller.addListener(
+      () => BlocProvider.of<PositionBloc>(context)
+          .add(_controller.position.pixels),
+    );
   }
 
   @override
@@ -46,7 +43,8 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void onRefresh(BuildContext context, PerCountryLoaded perCountryLoaded) async {
+  void onRefresh(
+      BuildContext context, PerCountryLoaded perCountryLoaded) async {
     await Future.wait([
       locator<GlobalSummaryRepository>().fetchGlobalSummary(),
       locator<PerCountryRepository>().fetchPerCountry(perCountryLoaded.country),

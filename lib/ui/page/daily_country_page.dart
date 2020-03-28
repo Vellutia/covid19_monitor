@@ -1,11 +1,8 @@
-import 'package:covid19_monitor/bloc/feature/daily_country_bloc.dart';
-import 'package:covid19_monitor/ui/widget/daily_country_page/daily_country_card.dart';
-import 'package:covid19_monitor/ui/widget/home_page/summary_number.dart';
-import 'package:covid19_monitor/utils/app_style.dart';
-import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+
+import '../../bloc/feature/daily_country_bloc.dart';
+import '../widget/daily_country_page/daily_country_card.dart';
 
 class DailyCountryPage extends StatelessWidget {
   final String Function(int) formatValue;

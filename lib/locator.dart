@@ -1,12 +1,12 @@
-import 'package:covid19_monitor/repository/country_list_repository.dart';
-import 'package:covid19_monitor/repository/daily_country_repository.dart';
-import 'package:covid19_monitor/repository/daily_update_repository.dart';
-import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:get_it/get_it.dart';
 
 import 'repository/api.dart';
 import 'repository/api_service.dart';
+import 'repository/country_list_repository.dart';
+import 'repository/daily_country_repository.dart';
+import 'repository/daily_update_repository.dart';
 import 'repository/global_summary_repository.dart';
+import 'repository/per_country_repository.dart';
 
 GetIt locator = GetIt.instance;
 

@@ -1,22 +1,22 @@
-import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
-import 'package:covid19_monitor/repository/country_list_repository.dart';
-import 'package:covid19_monitor/repository/daily_update_repository.dart';
-import 'package:covid19_monitor/repository/per_country_repository.dart';
-import 'package:covid19_monitor/utils/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/intl.dart';
 
-import 'bloc/feature/country_list_bloc.dart';
 import 'bloc/data/position_bloc.dart';
+import 'bloc/feature/country_list_bloc.dart';
+import 'bloc/feature/daily_update_bloc.dart';
 import 'bloc/feature/global_summary_bloc.dart';
 import 'bloc/feature/per_country_bloc.dart';
 import 'bloc_delegate.dart';
 import 'locator.dart';
+import 'repository/country_list_repository.dart';
+import 'repository/daily_update_repository.dart';
 import 'repository/global_summary_repository.dart';
+import 'repository/per_country_repository.dart';
 import 'ui/page/home_page.dart';
+import 'utils/app_style.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,8 +25,9 @@ void main() async {
 
   setupLocator();
 
-  BlocSupervisor.delegate =
-      SimpleBlocDelegate(await HydratedBlocStorage.getInstance());
+  // BlocSupervisor.delegate =
+  //     SimpleBlocDelegate(await HydratedBlocStorage.getInstance());
+  BlocSupervisor.delegate = await HydratedBlocDelegate.build();
 
   runApp(
     MyApp(),
