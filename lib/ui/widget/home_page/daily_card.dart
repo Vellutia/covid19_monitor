@@ -102,6 +102,7 @@ class DailyCard extends StatelessWidget {
                                     '${state.dailyUpdates[index].reportDate.year.toString().padLeft(4, '0')}-${state.dailyUpdates[index].reportDate.month.toString().padLeft(2, '0')}-${state.dailyUpdates[index].reportDate.day.toString().padLeft(2, '0')}')),
                                 child: DailyCountryPage(
                                   formatValue: formatValue,
+                                  reportDate: reportDate,
                                 ),
                               ),
                             ),

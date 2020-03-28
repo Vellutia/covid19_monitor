@@ -49,7 +49,7 @@ class _SummaryPiechartState extends State<SummaryPiechart> {
     return List.generate(3, (i) {
       final value = widget.numbers[i] == '' ? '' : widget.numbers[i];
       final isTouched = i == touchedIndex;
-      final double radius = isTouched ? 60 : 50;
+      final double radius = isTouched ? 65 : 60;
       switch (i) {
         case 0:
           return PieChartSectionData(

@@ -64,6 +64,7 @@ class CountrySearch extends SearchDelegate {
     return ListView.builder(
       itemCount: suggestion.length,
       itemBuilder: (context, index) => ListTile(
+        leading: Icon(Icons.search),
         title: RichText(
           text: TextSpan(
             children: highlightOccurrences(
