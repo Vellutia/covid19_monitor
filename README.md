@@ -2,7 +2,7 @@
 
 APK Download: https://github.com/Vellutia/covid19_monitor/releases
 
-# currency_converter
+# covid19_monitor
 
 Personal project with learning purposes.
 
