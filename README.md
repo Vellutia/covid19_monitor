@@ -17,11 +17,11 @@ Personal project with learning purposes.
 
 ### Powered by
 
-- [covid-19-api](https://github.com/mathdroid/covid-19-api) - COVID-19 global data (from JHU CSSE for now) as-a-service.
+- [mathdroid](https://github.com/mathdroid)/[covid-19-api](https://github.com/mathdroid/covid-19-api) - COVID-19 global data (from JHU CSSE for now) as-a-service.
 
 ### Design clone of
 
-- [kotlin-mvvm-covid19](https://github.com/rizmaulana/kotlin-mvvm-covid19)
+- [rizmaulana](https://github.com/rizmaulana)/[kotlin-mvvm-covid19](https://github.com/rizmaulana/kotlin-mvvm-covid19) - This repository contains simple COVID19 data monitoring with android stack MVVM, Live Data, Koin, RxJava, RxBinding, Offline first with simple caching, etc
 
 ## Examples
 
