@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:covid19_monitor/model/per_country_model.dart';
-import 'package:covid19_monitor/repository/per_country_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+
+import '../../model/per_country_model.dart';
+import '../../repository/per_country_repository.dart';
 
 part 'per_country_event.dart';
 part 'per_country_state.dart';

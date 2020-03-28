@@ -1,10 +1,11 @@
 import 'dart:math' as math;
-import 'package:covid19_monitor/bloc/feature/country_list_bloc.dart';
-import 'package:covid19_monitor/bloc/feature/per_country_bloc.dart';
-import 'package:covid19_monitor/model/country_list_model.dart';
-import 'package:covid19_monitor/utils/app_style.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../bloc/feature/per_country_bloc.dart';
+import '../../../model/country_list_model.dart';
+import '../../../utils/app_style.dart';
 
 class CountrySearch extends SearchDelegate {
   final CountryList countryList;

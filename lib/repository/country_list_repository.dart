@@ -1,6 +1,6 @@
-import 'package:covid19_monitor/model/country_list_model.dart';
 import 'package:flutter/foundation.dart';
 
+import '../model/country_list_model.dart';
 import 'api_service.dart';
 
 class CountryListRepository {

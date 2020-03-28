@@ -1,10 +1,11 @@
-import 'package:covid19_monitor/bloc/feature/global_summary_bloc.dart';
-import 'package:covid19_monitor/ui/widget/home_page/summary_cases.dart';
-import 'package:covid19_monitor/ui/widget/home_page/summary_number.dart';
-import 'package:covid19_monitor/ui/widget/home_page/summary_piechart.dart';
-import 'package:covid19_monitor/utils/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../bloc/feature/global_summary_bloc.dart';
+import '../../../utils/app_style.dart';
+import 'summary_cases.dart';
+import 'summary_number.dart';
+import 'summary_piechart.dart';
 
 class SummaryCard extends StatelessWidget {
   final String Function(int) formatValue;

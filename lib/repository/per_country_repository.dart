@@ -1,7 +1,6 @@
-import 'package:covid19_monitor/model/global_summary_model.dart';
-import 'package:covid19_monitor/model/per_country_model.dart';
 import 'package:flutter/foundation.dart';
 
+import '../model/per_country_model.dart';
 import 'api_service.dart';
 
 class PerCountryRepository {

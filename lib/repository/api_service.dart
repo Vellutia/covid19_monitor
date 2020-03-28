@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:covid19_monitor/model/country_list_model.dart';
-import 'package:covid19_monitor/model/daily_country_model.dart';
-import 'package:covid19_monitor/model/daily_update_model.dart';
-import 'package:covid19_monitor/model/per_country_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/country_list_model.dart';
+import '../model/daily_country_model.dart';
+import '../model/daily_update_model.dart';
 import '../model/global_summary_model.dart';
+import '../model/per_country_model.dart';
 import 'api.dart';
 
 class ApiService {

@@ -1,7 +1,8 @@
-import 'package:covid19_monitor/ui/widget/home_page/summary_number.dart';
-import 'package:covid19_monitor/utils/app_style.dart';
-import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
+
+import '../../../utils/app_style.dart';
+import '../../../utils/ui_helper.dart';
+import '../home_page/summary_number.dart';
 
 class DailyCountryCard extends StatelessWidget {
   final String country, confirmed, deaths;

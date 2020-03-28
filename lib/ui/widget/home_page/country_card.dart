@@ -1,14 +1,13 @@
-import 'package:covid19_monitor/bloc/feature/country_list_bloc.dart';
-import 'package:covid19_monitor/bloc/feature/global_summary_bloc.dart';
-import 'package:covid19_monitor/bloc/feature/per_country_bloc.dart';
-import 'package:covid19_monitor/ui/widget/home_page/summary_number.dart';
-import 'package:covid19_monitor/utils/app_style.dart';
-import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../bloc/feature/country_list_bloc.dart';
+import '../../../bloc/feature/per_country_bloc.dart';
+import '../../../utils/app_style.dart';
+import '../../../utils/ui_helper.dart';
 import 'country_search.dart';
+import 'summary_number.dart';
 
 class CountryCard extends StatelessWidget {
   final String Function(int) formatValue;

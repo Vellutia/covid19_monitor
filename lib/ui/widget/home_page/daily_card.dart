@@ -1,15 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:covid19_monitor/bloc/feature/daily_country_bloc.dart';
-import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
-import 'package:covid19_monitor/repository/daily_country_repository.dart';
-import 'package:covid19_monitor/ui/page/daily_country_page.dart';
-import 'package:covid19_monitor/utils/app_style.dart';
-import 'package:covid19_monitor/utils/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../bloc/feature/daily_country_bloc.dart';
+import '../../../bloc/feature/daily_update_bloc.dart';
 import '../../../locator.dart';
+import '../../../repository/daily_country_repository.dart';
+import '../../../utils/app_style.dart';
+import '../../../utils/ui_helper.dart';
+import '../../page/daily_country_page.dart';
 
 class DailyCard extends StatelessWidget {
   final String Function(int) formatValue;

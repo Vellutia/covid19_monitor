@@ -1,4 +1,4 @@
-import 'package:covid19_monitor/model/value_model.dart';
+import 'value_model.dart';
 
 class GlobalSummary {
   final Value confirmed;

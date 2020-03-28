@@ -9,7 +9,6 @@ import 'bloc/feature/country_list_bloc.dart';
 import 'bloc/feature/daily_update_bloc.dart';
 import 'bloc/feature/global_summary_bloc.dart';
 import 'bloc/feature/per_country_bloc.dart';
-import 'bloc_delegate.dart';
 import 'locator.dart';
 import 'repository/country_list_repository.dart';
 import 'repository/daily_update_repository.dart';

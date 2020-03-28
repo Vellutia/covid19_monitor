@@ -1,8 +1,8 @@
-import 'package:covid19_monitor/bloc/data/position_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../bloc/data/position_bloc.dart';
 import '../../bloc/feature/daily_update_bloc.dart';
 import '../../bloc/feature/global_summary_bloc.dart';
 import '../../bloc/feature/per_country_bloc.dart';
