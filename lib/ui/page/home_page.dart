@@ -71,9 +71,7 @@ class _HomePageState extends State<HomePage> {
         duration: Duration(milliseconds: 500),
       );
 
-  String formatValue(int value) => NumberFormat.simpleCurrency(decimalDigits: 0)
-      .format(value)
-      .replaceAll('\$', '');
+  String formatValue(int value) => NumberFormat('#,###').format(value);
 
   @override
   Widget build(BuildContext context) {
