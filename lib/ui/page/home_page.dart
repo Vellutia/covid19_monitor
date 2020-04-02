@@ -81,12 +81,19 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          mini: true,
-          elevation: 0.0,
-          highlightElevation: 0.0,
-          child: Icon(Icons.arrow_upward),
-          onPressed: () => jumpToTop(),
+        floatingActionButton: BlocBuilder<PositionBloc, double>(
+          builder: (context, state) => AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: state >= 200
+                ? FloatingActionButton(
+                    mini: true,
+                    elevation: 0.0,
+                    highlightElevation: 0.0,
+                    child: Icon(Icons.arrow_upward),
+                    onPressed: () => jumpToTop(),
+                  )
+                : Offstage(),
+          ),
         ),
         appBar: AppBar(
           title: Row(
