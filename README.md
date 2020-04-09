@@ -44,9 +44,3 @@ Personal project with learning purposes.
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
-## Author
-
-- [Federick Jonathan](https://github.com/Vellutia)
-
-If you find this helpful in any way, please consider give it a ★.
