@@ -24,7 +24,7 @@ void main() {
   });
 
   group(
-    'PositionBloc initialState',
+    'PositionBloc HydratedBloc initialState',
     () {
       PositionBloc positionBloc;
 
@@ -51,10 +51,28 @@ void main() {
         },
       );
 
+      group(
+        'clear',
+        () {
+          test(
+            'calls delete on storage',
+            () async {
+              await positionBloc.clear();
+              verify(storage.delete('PositionBloc')).called(1);
+            },
+          );
+        },
+      );
+    },
+  );
+
+  group(
+    'mapEventToState',
+    () {
       blocTest(
-        'should yield [0.2, 0.3] when event is [0.2, 0.3]',
+        'emits [0.2, 0.3] when [0.2, 0.3] is added',
         build: () async {
-          return positionBloc;
+          return PositionBloc();
         },
         act: (bloc) async {
           bloc.add(0.2);
@@ -62,16 +80,6 @@ void main() {
         },
         expect: [0.2, 0.3],
       );
-
-      group('clear', () {
-        test(
-          'calls delete on storage',
-          () async {
-            await positionBloc.clear();
-            verify(storage.delete('PositionBloc')).called(1);
-          },
-        );
-      });
     },
   );
 }
