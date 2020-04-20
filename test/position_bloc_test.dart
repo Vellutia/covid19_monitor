@@ -24,7 +24,7 @@ void main() {
   });
 
   group(
-    'PositionBloc HydratedBloc initialState',
+    'initialState HydratedBloc',
     () {
       PositionBloc positionBloc;
 

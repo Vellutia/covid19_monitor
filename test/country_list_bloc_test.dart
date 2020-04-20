@@ -15,7 +15,7 @@ void main() {
   });
 
   group(
-    'CountryListBloc initialState',
+    'initialState',
     () {
       blocTest(
         'emits [] when nothing is added',
