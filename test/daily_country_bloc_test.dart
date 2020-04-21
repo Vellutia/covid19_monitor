@@ -62,7 +62,7 @@ void main() {
       ];
 
       blocTest(
-        'emits [DailyCountryLoading(), DailyCountryLoaded()] when DailyCountryEvent is added',
+        'emits [DailyCountryLoading(), DailyCountryLoaded()] when DailyCountryEvent() is added',
         build: () async {
           when(mockDailyCountryRepository.fetchDailyCountry(any))
               .thenAnswer((realInvocation) async => dailyCountry);

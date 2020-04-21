@@ -51,7 +51,7 @@ void main() {
       );
 
       blocTest(
-        'emits [CountryListLoaded()] when CountryListEvent is added',
+        'emits [CountryListLoaded()] when CountryListEvent() is added',
         build: () async {
           when(mockCountryListRepository.fetchCountryList())
               .thenAnswer((realInvocation) async => countryList);
