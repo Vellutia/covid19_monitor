@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
 import 'package:covid19_monitor/model/daily_update_model.dart';
@@ -67,7 +69,14 @@ void main() {
 
       test(
         'initialState should return DailyUpdateLoaded() when fromJson returns dailyUpdate',
-        () {},
+        () {
+          final dailyUpdateMapped =
+              List.from(dailyUpdate.map((e) => e.toJson()));
+          when<dynamic>(storage.read('DailyUpdateBloc'))
+              .thenReturn(json.encode({'dailyUpdates': dailyUpdateMapped}));
+          expect(dailyUpdateBloc.initialState, DailyUpdateLoaded(dailyUpdate));
+          verify<dynamic>(storage.read('DailyUpdateBloc')).called(2);
+        },
       );
 
       group(
