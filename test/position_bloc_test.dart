@@ -32,6 +32,10 @@ void main() {
         positionBloc = PositionBloc();
       });
 
+      tearDown(() {
+        positionBloc?.close();
+      });
+
       test(
         'initialState should return 0.0 when fromJson returns null',
         () {

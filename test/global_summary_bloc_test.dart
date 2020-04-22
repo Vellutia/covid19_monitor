@@ -52,6 +52,10 @@ void main() {
         );
       });
 
+      tearDown(() {
+        globalSummaryBloc?.close();
+      });
+
       test(
         'initialState should return GlobalSummaryInitial() when fromJson returns null',
         () {
