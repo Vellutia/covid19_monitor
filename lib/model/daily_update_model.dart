@@ -1,4 +1,6 @@
-class DailyUpdate {
+import 'package:equatable/equatable.dart';
+
+class DailyUpdate extends Equatable {
   final int mainlandChina;
   final int otherLocations;
   final Details deltaConfirmedDetail;
@@ -29,9 +31,21 @@ class DailyUpdate {
         "reportDate":
             "${reportDate.year.toString().padLeft(4, '0')}-${reportDate.month.toString().padLeft(2, '0')}-${reportDate.day.toString().padLeft(2, '0')}",
       };
+
+  @override
+  List<Object> get props => [
+        mainlandChina,
+        otherLocations,
+        deltaConfirmedDetail,
+        deaths,
+        reportDate,
+      ];
+
+  @override
+  bool get stringify => true;
 }
 
-class Details {
+class Details extends Equatable {
   final int total;
 
   const Details({
@@ -45,4 +59,10 @@ class Details {
   Map<String, dynamic> toJson() => {
         "total": total,
       };
+
+  @override
+  List<Object> get props => [total];
+
+  @override
+  bool get stringify => true;
 }
