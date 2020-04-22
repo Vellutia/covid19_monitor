@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'value_model.dart';
 
-class GlobalSummary {
+class GlobalSummary extends Equatable {
   final Value confirmed;
   final Value recovered;
   final Value deaths;
@@ -26,4 +28,10 @@ class GlobalSummary {
         "deaths": deaths.toJson(),
         "source": source,
       };
+
+  @override
+  List<Object> get props => [confirmed, recovered, deaths, source];
+
+  @override
+  bool get stringify => true;
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:covid19_monitor/bloc/feature/daily_update_bloc.dart';
 import 'package:covid19_monitor/model/daily_update_model.dart';

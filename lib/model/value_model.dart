@@ -1,4 +1,6 @@
-class Value {
+import 'package:equatable/equatable.dart';
+
+class Value extends Equatable {
   final String value;
 
   const Value({
@@ -12,4 +14,7 @@ class Value {
   Map<String, dynamic> toJson() => {
         "value": value,
       };
+
+  @override
+  List<Object> get props => [value];
 }
