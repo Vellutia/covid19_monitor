@@ -26,14 +26,14 @@ void main() {
       deltaConfirmedDetail: Details(total: 0),
       mainlandChina: 0,
       otherLocations: 0,
-      reportDate: DateTime.now(),
+      reportDate: DateTime(2020, 1, 10),
     ),
     DailyUpdate(
       deaths: Details(total: 1),
       deltaConfirmedDetail: Details(total: 1),
       mainlandChina: 1,
       otherLocations: 1,
-      reportDate: DateTime.now(),
+      reportDate: DateTime(2020, 1, 11),
     ),
   ];
 
@@ -56,6 +56,10 @@ void main() {
         dailyUpdateBloc = DailyUpdateBloc(
           dailyUpdateRepository: mockDailyUpdateRepository,
         );
+      });
+
+      tearDown(() {
+        dailyUpdateBloc?.close();
       });
 
       test(
