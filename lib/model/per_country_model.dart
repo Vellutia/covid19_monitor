@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'value_model.dart';
 
-class PerCountry {
+class PerCountry extends Equatable {
   final Value confirmed;
   final Value recovered;
   final Value deaths;
@@ -26,4 +28,10 @@ class PerCountry {
         "deaths": deaths.toJson(),
         "lastUpdate": lastUpdate.toIso8601String(),
       };
+
+  @override
+  List<Object> get props => [confirmed, recovered, deaths, lastUpdate];
+
+  @override
+  bool get stringify => true;
 }
